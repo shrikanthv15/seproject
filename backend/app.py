@@ -12,20 +12,20 @@ from flask_cors import CORS
 from celery import Celery   
 from func.configmail import configure_mail
 
-def make_celery(app):
-    celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
-    celery.conf.update(app.config)
-    celery.conf.imports = ('func.reports',)
-    TaskBase = celery.Task
+# def make_celery(app):
+#     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
+#     celery.conf.update(app.config)
+#     celery.conf.imports = ('func.reports',)
+#     TaskBase = celery.Task
 
-    class ContextTask(TaskBase):
-        abstract = True
+#     class ContextTask(TaskBase):
+#         abstract = True
 
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return TaskBase.__call__(self, *args, **kwargs)
-    celery.Task = ContextTask
-    return celery
+#         def __call__(self, *args, **kwargs):
+#             with app.app_context():
+#                 return TaskBase.__call__(self, *args, **kwargs)
+#     celery.Task = ContextTask
+#     return celery
 
 app = Flask(__name__)
 CORS(app)
