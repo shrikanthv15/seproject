@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+Flask-RESTful
+Flask-CORS
+Celery
+redis
